@@ -1,19 +1,17 @@
-import React from 'react'
+import React from 'react';
+import "./Home.css"
 const Bodyna = () =>{
   return(
-    <div className="body-res">
-      {/* <div className="search">Search</div> */}
       <div className="res-container">
-        <div className="res-card">
-          <img className='res-image' src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossyl,f_auto,q_auto,w_660/"+resObj.restaurants[2].info.cloudinaryImageId} alt="" />
-          <h3>{resObj.restaurants[2].info.name}</h3>
-          <h4>{resObj.restaurants[2].info.cuisines.join(",")}</h4>
-          <h4>{resObj.restaurants[2].info.avgRating}</h4>
-          <h4>{resObj.restaurants[2].info.costForTwo}</h4>
-          <h4>{resObj.restaurants[2].info.areaName}</h4>
-        </div>
+        {resObj.restaurants.map((restaurant)=>(
+            <div className="res-card">
+              <img className='res-image' src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossyl,f_auto,q_auto,w_660/"+restaurant.info.cloudinaryImageId} alt="" />
+              <h4>{restaurant.info.name}</h4>
+              <h5>{restaurant.info.locality}</h5>
+            </div>
+          
+        ))}
       </div>
-    </div>
   )
 }
 const resObj={
