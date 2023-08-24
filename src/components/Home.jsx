@@ -1,16 +1,27 @@
 import React from 'react';
+import { useState } from 'react';
 import "./Home.css"
 const Bodyna = () =>{
+  const [listOfRes,setListOfRes]=useState(resObj);
   return(
-      <div className="res-container">
-        {resObj.restaurants.map((restaurant)=>(
-            <div className="res-card">
-              <img className='res-image' src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossyl,f_auto,q_auto,w_660/"+restaurant.info.cloudinaryImageId} alt="" />
-              <h4>{restaurant.info.name}</h4>
-              <h5>{restaurant.info.locality}</h5>
-            </div>
-          
-        ))}
+      <div className="struct">
+           <div className="filter">
+              <button className='filter-btn' onClick={()=>{
+                const filtered=listOfRes.restaurants.filter((res)=>res.info.avgRating>4);
+                setListOfRes({restaurants:filtered});
+              }}>Top Rated Restaurants</button>
+           </div>
+           <div className="res-container">
+               {listOfRes.restaurants.map((restaurant)=>(
+               <div className="res-card">
+                 <img className='res-image' src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossyl,f_auto,q_auto,w_660/"+restaurant.info.cloudinaryImageId} alt="" />
+                 <h4>{restaurant.info.name}</h4>
+                 <h5>{restaurant.info.locality}</h5>
+                 <h5>{restaurant.info.avgRating}</h5>
+                 <h5>{restaurant.info.costForTwo}</h5>
+               </div>
+               ))}
+           </div>
       </div>
   )
 }
