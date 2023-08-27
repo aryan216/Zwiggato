@@ -3,9 +3,20 @@ import { useState } from 'react';
 import "./Home.css"
 const Bodyna = () =>{
   const [listOfRes,setListOfRes]=useState(resObj);
+ 
+  const [searchText,setsearchText]=useState("");
   return(
       <div className="struct">
            <div className="filter">
+              <div className='search'>
+                  <input type="text" className='search-box' value={searchText} onChange={(e)=>{
+                    setsearchText(e.target.value)
+                    }}/>
+                  <button onClick={()=>{
+                    const filteredres=listOfRes.restaurants.filter((res)=>res.info.name.toLowerCase().includes(searchText.toLowerCase()));
+                    setListOfRes({restaurants:filteredres});
+                  }}>submit</button>
+              </div>
               <button className='filter-btn' onClick={()=>{
                 const filtered=listOfRes.restaurants.filter((res)=>res.info.avgRating>4);
                 setListOfRes({restaurants:filtered});
@@ -2246,6 +2257,7 @@ const resObj={
   ]
 }
 const Home = () => {
+  const [btnName,setbtnName]=useState("login");
   return (
     <div className='header'>
       <div className='logo-container'>
@@ -2257,11 +2269,12 @@ const Home = () => {
           <li>About Us</li>
           <li>Contact</li>
           <li>Cart</li>
+          <button className='login' onClick={()=>{
+            btnName==="login"?setbtnName("logout"):setbtnName("login");
+          }}>{btnName}</button>
         </ul>
       </div>
-    </div>
-    
+    </div>    
   )
 }
-
 export {Home,Bodyna};
