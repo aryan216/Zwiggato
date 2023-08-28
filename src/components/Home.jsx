@@ -3,7 +3,7 @@ import { useState } from 'react';
 import "./Home.css"
 const Bodyna = () =>{
   const [listOfRes,setListOfRes]=useState(resObj);
- 
+  const [filteredRes,setfilteredRes]=useState(resObj);
   const [searchText,setsearchText]=useState("");
   return(
       <div className="struct">
@@ -14,7 +14,7 @@ const Bodyna = () =>{
                     }}/>
                   <button onClick={()=>{
                     const filteredres=listOfRes.restaurants.filter((res)=>res.info.name.toLowerCase().includes(searchText.toLowerCase()));
-                    setListOfRes({restaurants:filteredres});
+                    setfilteredRes({restaurants:filteredres});
                   }}>submit</button>
               </div>
               <button className='filter-btn' onClick={()=>{
@@ -23,7 +23,7 @@ const Bodyna = () =>{
               }}>Top Rated Restaurants</button>
            </div>
            <div className="res-container">
-               {listOfRes.restaurants.map((restaurant)=>(
+               {filteredRes.restaurants.map((restaurant)=>(
                <div className="res-card">
                  <img className='res-image' src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossyl,f_auto,q_auto,w_660/"+restaurant.info.cloudinaryImageId} alt="" />
                  <h4>{restaurant.info.name}</h4>
