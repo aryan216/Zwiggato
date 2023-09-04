@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import "./Home.css"
+import { createBrowserRouter } from 'react-router-dom';
 const Bodyna = () =>{
   const [listOfRes,setListOfRes]=useState(resObj);
   const [filteredRes,setfilteredRes]=useState(resObj);
@@ -15,15 +16,17 @@ const Bodyna = () =>{
                   <button onClick={()=>{
                     const filteredres=listOfRes.restaurants.filter((res)=>res.info.name.toLowerCase().includes(searchText.toLowerCase()));
                     setfilteredRes({restaurants:filteredres});
+
                   }}>submit</button>
               </div>
               <button className='filter-btn' onClick={()=>{
                 const filtered=listOfRes.restaurants.filter((res)=>res.info.avgRating>4);
                 setListOfRes({restaurants:filtered});
+                console.log(filtered);
               }}>Top Rated Restaurants</button>
            </div>
            <div className="res-container">
-               {filteredRes.restaurants.map((restaurant)=>(
+               {filteredRes.restaurants.length>0?filteredRes.restaurants.map((restaurant)=>(
                <div className="res-card">
                  <img className='res-image' src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossyl,f_auto,q_auto,w_660/"+restaurant.info.cloudinaryImageId} alt="" />
                  <h4>{restaurant.info.name}</h4>
@@ -31,11 +34,12 @@ const Bodyna = () =>{
                  <h5>{restaurant.info.avgRating}</h5>
                  <h5>{restaurant.info.costForTwo}</h5>
                </div>
-               ))}
+               )):<p>no data found</p>}
            </div>
       </div>
   )
 }
+
 const resObj={
   "restaurants": [
                   {
